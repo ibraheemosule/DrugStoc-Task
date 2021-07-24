@@ -51,6 +51,7 @@
                   id="deliveryPeriod"
                   list="delivery"
                   maxlength="10"
+                  placeholder="Period When Item Will Be Delivered"
                 />
                 <datalist id="delivery">
                   <option value="day(s)"></option>
@@ -58,6 +59,17 @@
                   <option value="Month(s)"></option>
                   <option value="Year(s)"></option>
                 </datalist>
+              </div>
+            </div>
+            <div class="data">
+              <label for="length">Period Length:</label>
+              <div class="input-container">
+                <input
+                  type="number"
+                  id="length"
+                  min="1"
+                  placeholder="Input a Number For Period Length"
+                />
               </div>
             </div>
             <div class="data">
@@ -80,7 +92,12 @@
             <div class="data">
               <label for="name">Name Assigned To:</label>
               <div class="input-container">
-                <input type="text" id="name" maxlength="20" />
+                <input
+                  type="text"
+                  id="name"
+                  maxlength="20"
+                  placeholder="Personnel To Deliver Item"
+                />
               </div>
             </div>
             <div class="button-container">

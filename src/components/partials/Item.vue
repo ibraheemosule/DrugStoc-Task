@@ -1,11 +1,11 @@
 <template>
-  <div class="item">
+  <div class="item" v-for="item in items" :key="item.title">
     <div class="message">
-      <img src="@/assets/Images/books.svg" alt="" />
+      <img src="@/assets/Images/books.svg" alt="books" />
       <div>
         <p>
-          Increase confidence with trust pilot reviews <br /><span
-            ><i>custom task</i></span
+          {{ item.title }} <br /><span
+            ><i>{{ item.tag }}</i></span
           >
         </p>
       </div>
@@ -13,20 +13,22 @@
     <div class="price">
       <div>
         <p>
-          N500 <br /><span>Task price</span
-          ><span class="delivery">Delivery: <small>within 3 days</small> </span>
+          N{{ item.price }} <br /><span>Task price</span
+          ><span class="delivery"
+            >Delivery: <small>within {{ item.status }} {{ item.period }}</small>
+          </span>
         </p>
       </div>
     </div>
     <div class="profile">
       <img class="profile-img" src="@/assets/Images/person.jpg" alt="" />
       <div>
-        <p>Adam Musa <br /><span>Task Price</span></p>
+        <p>{{ item.name }} <br /><span>Assigned to</span></p>
       </div>
     </div>
     <div class="options">
       <div class="status">
-        <div class="verify"><span></span> Verify</div>
+        <div class="verify"><span></span> {{ item.status }}</div>
       </div>
       <div>
         <img class="message" src="@/assets/Images/message.svg" alt="message" />
@@ -40,10 +42,14 @@
 
 <script>
 import { reactive, toRefs } from "vue";
+import { useStore } from "vuex";
 
 export default {
   setup() {
-    const data = reactive({});
+    const store = useStore();
+    const data = reactive({
+      items: store.getters.items,
+    });
 
     return {
       ...toRefs(data),
