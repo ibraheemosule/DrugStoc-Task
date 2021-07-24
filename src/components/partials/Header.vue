@@ -9,7 +9,7 @@
         />
       </nav>
       <div>
-        <button @click="createUser" class="add-item">
+        <button @click="openModal" class="add-item">
           <span>Add New Item</span>
           <img src="@/assets/Images/plus.svg" alt="add item" />
         </button>
@@ -26,26 +26,21 @@
         <img src="@/assets/Images/search.svg" alt="search bar icon" />
       </div>
       <div class="searchbar__sort">
-        <select>
-          <option value="Sort By" disabled selected>Sort By</option>
+        <select v-model="sortBy">
+          <option value="" disabled selected>Sort By</option>
           <optgroup label="Alphabetical">
-            <option value="ascending">Ascending</option>
-            <option value="decending">Descending</option>
+            <option value="1ascending">Ascending</option>
+            <option value="2descending">Descending</option>
           </optgroup>
           <optgroup label="Price">
-            <option value="ascending">Ascending</option>
-            <option value="decending">Decending</option>
+            <option value="3ascending">Ascending</option>
+            <option value="4descending">Descending</option>
           </optgroup>
         </select>
         <img src="@/assets/Images/sort.svg" alt="sort icon" />
       </div>
     </div>
-    <Modal
-      @close="toggle"
-      :modalText="modalText"
-      :modal="modalToggle"
-      :signup="signup"
-    />
+    <Modal @close="toggle" :modal="modalToggle" :signup="signup" />
   </header>
 </template>
 
@@ -53,35 +48,36 @@
 import { reactive, toRefs, watch, ref } from "vue";
 
 import Modal from "@/components/partials/AddItemModal.vue";
+import { useStore } from "vuex";
 
 export default {
   components: {
     Modal,
   },
   setup() {
-    const signup = ref(false);
+    const store = useStore();
+    const signup = ref("");
+    const sortBy = ref("");
+    const search = ref("");
     const data = reactive({
       modalToggle: false,
     });
-    watch(signup, () => {
-      if (signup.value == true) {
-        data.modalText = "Signing Up... Please Wait";
-        window.disabled = true;
-      } else {
-        data.modalText = "Sign up Successful";
-      }
+    //WATCH THE SORT SELECT TAG VALUE
+    watch(sortBy, () => {
+      console.log(sortBy.value);
+      store.dispatch("sortMethod", { value: sortBy.value[0] });
     });
 
-    const createUser = async () => {
-      try {
-        signup.value = true;
-        console.log(signup.value);
-        toggle();
-        signup.value = false;
-        await console.log("success");
-      } catch (err) {
-        data.modalText = err.message;
-      }
+    //WATCH THE SEARCH BAR
+    watch(search, () => {
+      store.dispatch("filter", { value: search.value });
+    });
+
+    const openModal = async () => {
+      signup.value = true;
+      toggle();
+      signup.value = false;
+      store.commit("SET_SUCCESS", "");
     };
     const toggle = () => {
       data.modalToggle = !data.modalToggle;
@@ -98,9 +94,11 @@ export default {
     );
     return {
       ...toRefs(data),
-      createUser,
+      openModal,
       toggle,
       signup,
+      sortBy,
+      search,
     };
   },
 };
@@ -176,7 +174,7 @@ header {
     &__sort {
       position: absolute;
       display: flex;
-      right: 1.5rem;
+      right: 2rem;
       top: 50%;
       transform: translateY(-50%);
       border: 0;
@@ -198,12 +196,16 @@ header {
       &:hover {
         color: #808080;
       }
+      select:focus {
+        background: white;
+        z-index: 2;
+      }
       @media (max-width: 500px) {
         padding: 0 0 0 0.2em;
       }
       img {
         width: 30px;
-        margin-left: -2em;
+        margin-left: -0.8em;
         @media (max-width: 500px) {
           width: 20px;
         }

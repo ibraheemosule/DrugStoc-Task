@@ -5,13 +5,18 @@
 <script>
 import { reactive, toRefs } from "vue";
 import Home from "./components/Home.vue";
+import { useStore } from "vuex";
 
 export default {
   components: {
     Home,
   },
   setup() {
+    const store = useStore();
     const data = reactive({});
+    (function () {
+      store.commit("SET_ITEMSCOPY", store.getters.items);
+    })();
 
     return {
       ...toRefs(data),

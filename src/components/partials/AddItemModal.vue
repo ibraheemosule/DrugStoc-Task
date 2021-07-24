@@ -6,19 +6,25 @@
       :style="modal === true ? { display: 'block' } : { display: 'none' }"
     >
       <div class="modal-content">
-        <div class="form-data">
+        <h5 v-if="success === true" style="color: green">
+          ITEM HAS BEEN ADDED
+        </h5>
+        <h5 v-if="success === false" style="color: red">
+          SORRY, DUPLICATE ITEM CANNOT BE ADDED
+        </h5>
+        <div class="form-data" v-if="success === ''">
           <h3>ADD NEW TASK</h3>
-          <form @submit.prevent="createUser">
+          <form @submit.prevent="addItem" id="new-item-form">
             <div class="data">
               <label for="title">Task Title:</label>
               <div class="input-container">
-                <input type="text" id="title" />
+                <input v-model="title" type="text" id="title" />
               </div>
             </div>
             <div class="data">
               <label for="task">Task Tag:</label>
               <div class="input-container">
-                <input type="text" id="task" list="taskList" />
+                <input v-model="tag" type="text" id="task" list="taskList" />
                 <datalist id="taskList">
                   <option value="Custom Tasks"></option>
                   <option value="Market & Sales"></option>
@@ -36,6 +42,7 @@
                   >&#8358;</span
                 >
                 <input
+                  v-model="price"
                   type="number"
                   id="price"
                   min="1"
@@ -47,6 +54,7 @@
               <label for="deliveryPeriod">Delivery Period:</label>
               <div class="input-container">
                 <input
+                  v-model="delivery"
                   type="text"
                   id="deliveryPeriod"
                   list="delivery"
@@ -65,6 +73,7 @@
               <label for="length">Period Length:</label>
               <div class="input-container">
                 <input
+                  v-model="length"
                   type="number"
                   id="length"
                   min="1"
@@ -76,6 +85,7 @@
               <label for="status">Task Status:</label>
               <div class="input-container">
                 <input
+                  v-model="status"
                   type="text"
                   id="status"
                   list="taskStatus"
@@ -93,12 +103,16 @@
               <label for="name">Name Assigned To:</label>
               <div class="input-container">
                 <input
+                  v-model="name"
                   type="text"
                   id="name"
                   maxlength="20"
                   placeholder="Personnel To Deliver Item"
                 />
               </div>
+            </div>
+            <div v-if="verifyFields === false" class="verifyFields">
+              Some fields are empty
             </div>
             <div class="button-container">
               <button class="add-item">Submit</button>
@@ -112,31 +126,67 @@
 </template>
 
 <script>
-import { reactive, toRefs } from "vue";
-
+import { reactive, toRefs, computed } from "vue";
+import { useStore } from "vuex";
 export default {
   props: {
     modal: Boolean,
-    modalText: String,
-    signup: Boolean,
   },
   setup(props, { emit }) {
-    const data = reactive({});
+    const store = useStore();
+    const data = reactive({
+      title: "",
+      tag: "",
+      price: "",
+      delivery: "",
+      length: "",
+      status: "",
+      name: "",
+      success: computed(() => store.getters.success),
+      verifyFields: true,
+    });
 
     const close = () => {
+      data.verifyFields == false;
       emit("close");
     };
 
     window.onclick = function (event) {
       const modal = document.getElementById("myModal");
       if (event.target == modal) {
+        data.verifyFields == false;
         emit("close");
       }
+    };
+
+    //ADD NEW ITEM
+    const addItem = () => {
+      data.verifyFields = true;
+      var elements = document.getElementsByTagName("input");
+      for (var i = 0; i < elements.length; i++) {
+        if (elements[i].value == "") {
+          data.verifyFields = false;
+          return;
+        }
+      }
+      const newItemObj = {
+        title: data.title,
+        tag: data.tag,
+        price: data.price,
+        delivery: data.delivery,
+        length: data.length,
+        status: data.status,
+        name: data.name,
+      };
+      if (data.verifyFields == true)
+        store.dispatch("addNewItem", { newItem: newItemObj });
+      data.verifyFields == false;
     };
     return {
       ...toRefs(data),
       close,
       open,
+      addItem,
     };
   },
 };
@@ -170,7 +220,8 @@ export default {
     @media (max-width: 540px) {
       margin-top: 30%;
     }
-    .form-data {
+    .form-data,
+    h5 {
       flex: 1;
       color: #616161;
       h3 {
@@ -206,6 +257,11 @@ export default {
             }
           }
         }
+        .verifyFields {
+          display: block;
+          text-align: center;
+          color: red;
+        }
         .button-container {
           text-align: center;
           .add-item {
@@ -225,6 +281,9 @@ export default {
           }
         }
       }
+    }
+    h5 {
+      text-align: center;
     }
     .close {
       color: #aaa;

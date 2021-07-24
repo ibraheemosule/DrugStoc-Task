@@ -18,12 +18,8 @@ export default {
     header: String,
     idname: String,
   },
-  setup(props) {
+  setup() {
     const data = reactive({});
-
-    (function () {
-      console.log(props.idname);
-    })();
 
     return {
       ...toRefs(data),

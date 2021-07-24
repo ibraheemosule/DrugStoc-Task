@@ -13,7 +13,7 @@
     <div class="price">
       <div>
         <p>
-          N{{ item.price }} <br /><span>Task price</span
+          N{{ item.price }}.00 <br /><span>Task price</span
           ><span class="delivery"
             >Delivery: <small>within {{ item.status }} {{ item.period }}</small>
           </span>
@@ -33,22 +33,28 @@
       <div>
         <img class="message" src="@/assets/Images/message.svg" alt="message" />
       </div>
-      <div>
-        <img class="more" src="@/assets/Images/dots.svg" alt="more" />
+      <div class="dropdown">
+        <button>
+          <img class="more" src="@/assets/Images/dots.svg" alt="more" />
+        </button>
+        <div class="dropdown-content">
+          <span>Link 1</span>
+          <span>Link 2</span>
+        </div>
       </div>
     </div>
   </div>
 </template>
 
 <script>
-import { reactive, toRefs } from "vue";
+import { reactive, toRefs, computed } from "vue";
 import { useStore } from "vuex";
 
 export default {
   setup() {
     const store = useStore();
     const data = reactive({
-      items: store.getters.items,
+      items: computed(() => store.getters.itemsCopy),
     });
 
     return {
@@ -209,6 +215,42 @@ export default {
         font-size: 0.8em;
         margin-top: 0.5em;
       }
+    }
+    .dropdown {
+      position: relative;
+      display: inline-block;
+
+      button {
+        border: none;
+        background: none;
+        cursor: pointer;
+      }
+      .dropdown-content {
+        display: none;
+        position: absolute;
+
+        background-color: #f1f1f1;
+        min-width: 100px;
+        box-shadow: 0px 2px 2px 0px #000000b3;
+        border-radius: 10px;
+        overflow: hidden;
+        z-index: 1;
+
+        span {
+          color: black;
+          padding: 12px 16px;
+          text-decoration: none;
+          display: block;
+          cursor: pointer;
+        }
+        span:hover {
+          background-color: #ddd;
+        }
+      }
+    }
+    .dropdown:hover .dropdown-content {
+      display: block;
+      left: -100%;
     }
   }
 }
