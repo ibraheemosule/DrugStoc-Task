@@ -25,10 +25,20 @@
       <div class="searchbar__icon">
         <img src="@/assets/Images/search.svg" alt="search bar icon" />
       </div>
-      <button class="searchbar__sort">
-        <span> Sort by </span>
+      <div class="searchbar__sort">
+        <select>
+          <option value="Sort By" disabled selected>Sort By</option>
+          <optgroup label="Alphabetical">
+            <option value="ascending">Ascending</option>
+            <option value="decending">Descending</option>
+          </optgroup>
+          <optgroup label="Price">
+            <option value="ascending">Ascending</option>
+            <option value="decending">Decending</option>
+          </optgroup>
+        </select>
         <img src="@/assets/Images/sort.svg" alt="sort icon" />
-      </button>
+      </div>
     </div>
   </header>
 </template>
@@ -125,9 +135,20 @@ header {
       transform: translateY(-50%);
       border: 0;
       background: none;
-      cursor: pointer;
+
       border-left: 1px solid black;
       padding-left: 1em;
+      select {
+        cursor: pointer;
+        border: 0;
+        background: none;
+        -moz-appearance: none;
+        padding: 0;
+        -webkit-appearance: none;
+        ::-ms-expand {
+          display: none;
+        }
+      }
       &:hover {
         color: #808080;
       }
@@ -136,10 +157,9 @@ header {
       }
       img {
         width: 30px;
-        margin-left: 0.5em;
+        margin-left: -2em;
         @media (max-width: 500px) {
           width: 20px;
-          margin-left: 0;
         }
       }
       span {
