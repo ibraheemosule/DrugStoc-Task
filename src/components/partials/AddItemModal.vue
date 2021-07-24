@@ -131,6 +131,7 @@ import { useStore } from "vuex";
 export default {
   props: {
     modal: Boolean,
+    id: String,
   },
   setup(props, { emit }) {
     const store = useStore();
@@ -148,14 +149,14 @@ export default {
 
     const close = () => {
       data.verifyFields == false;
+      store.commit("SET_SUCCESS", "");
       emit("close");
     };
 
     window.onclick = function (event) {
       const modal = document.getElementById("myModal");
       if (event.target == modal) {
-        data.verifyFields == false;
-        emit("close");
+        close();
       }
     };
 

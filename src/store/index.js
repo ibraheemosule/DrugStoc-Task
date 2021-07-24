@@ -99,10 +99,11 @@ export default createStore({
     },
 
     //SEARCH BAR UPDATER
-    filter({ commit, dispatch }, { value }) {
+    filter({ commit, dispatch, state }, { value }) {
       if (value.length == 0) dispatch("sortMethod", { value: 1 });
 
       commit("SET_SEARCH_VALUE", value);
+      console.log(state.itemsCopy);
     },
     addNewItem({ state, commit }, { newItem }) {
       const itemsTitleArray = state.items.map((item) => item.title);
@@ -110,7 +111,7 @@ export default createStore({
         commit("SET_SUCCESS", false);
         return;
       } else {
-        commit("SET_SUCCESS", "");
+        commit("SET_SUCCESS", true);
         let items = [newItem, ...state.items];
         commit("SET_ITEMS", items);
         commit("SET_ITEMSCOPY", items);
@@ -118,18 +119,13 @@ export default createStore({
     },
     deleteItem({ state, commit }, { id }) {
       //REMOVE ITEM FROM ITEMCOPY STATE
-      const itemsCopyTitles = state.itemsCopy.map((item) => item.title);
-      const itemCopyIndex = itemsCopyTitles.indexOf(id);
-      const itemsCopy = state.itemsCopy;
-      itemsCopy.splice(itemCopyIndex, 0);
+      let itemsCopy = state.itemsCopy;
+      itemsCopy = itemsCopy.filter((item) => item.title !== id);
       commit("SET_ITEMSCOPY", itemsCopy);
 
       //REMOVE ITEM FROM ORIGINAL ITEMS STATE
-      const itemsTitles = state.items.map((item) => item.title);
-      const itemIndex = itemsTitles.indexOf(id);
-      const items = state.items;
-      items.splice(itemIndex, 0);
-
+      let items = state.items;
+      items = items.filter((item) => item.title !== id);
       commit("SET_ITEMS", items);
       commit("SET_SUCCESS", true);
     },

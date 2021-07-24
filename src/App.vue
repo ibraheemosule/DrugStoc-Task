@@ -15,7 +15,7 @@ export default {
     const store = useStore();
     const data = reactive({});
     (function () {
-      store.commit("SET_ITEMSCOPY", store.getters.items);
+      store.commit("SET_ITEMSCOPY", store.state.items);
     })();
 
     return {

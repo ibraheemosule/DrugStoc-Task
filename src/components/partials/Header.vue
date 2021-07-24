@@ -64,13 +64,13 @@ export default {
     });
     //WATCH THE SORT SELECT TAG VALUE
     watch(sortBy, () => {
-      console.log(sortBy.value);
       store.dispatch("sortMethod", { value: sortBy.value[0] });
     });
 
     //WATCH THE SEARCH BAR
     watch(search, () => {
-      store.dispatch("filter", { value: search.value });
+      console.log(search);
+      store.dispatch("filter", { value: search });
     });
 
     const openModal = async () => {
