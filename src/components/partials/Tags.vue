@@ -35,7 +35,8 @@ export default {
 <style lang="scss" scoped>
 .container {
   color: gray;
-  margin-top: 3em;
+  margin: 3em 0;
+  padding-left: 2em;
 
   .tag {
     margin-top: 1em;
