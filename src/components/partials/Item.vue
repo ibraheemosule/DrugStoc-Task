@@ -38,27 +38,45 @@
           <img class="more" src="@/assets/Images/dots.svg" alt="more" />
         </button>
         <div class="dropdown-content">
-          <span>Link 1</span>
-          <span>Link 2</span>
+          <button @click="openModal" class="items" :id="item.title">
+            Delete
+          </button>
+          <button class="items" :id="item.title">Edit</button>
         </div>
       </div>
     </div>
+    <Modal @close="toggle" :modal="modalToggle" :id="id" />
   </div>
 </template>
 
 <script>
 import { reactive, toRefs, computed } from "vue";
 import { useStore } from "vuex";
+import Modal from "@/components/partials/DeleteModal.vue";
 
 export default {
+  components: {
+    Modal,
+  },
   setup() {
     const store = useStore();
     const data = reactive({
       items: computed(() => store.getters.itemsCopy),
+      modalToggle: false,
+      id: "",
     });
+    const toggle = () => {
+      data.modalToggle = !data.modalToggle;
+    };
+    const openModal = async (e) => {
+      data.id = e.target.id;
 
+      toggle();
+    };
     return {
       ...toRefs(data),
+      toggle,
+      openModal,
     };
   },
 };
@@ -228,7 +246,6 @@ export default {
       .dropdown-content {
         display: none;
         position: absolute;
-
         background-color: #f1f1f1;
         min-width: 100px;
         box-shadow: 0px 2px 2px 0px #000000b3;
@@ -236,14 +253,15 @@ export default {
         overflow: hidden;
         z-index: 1;
 
-        span {
+        button.items {
           color: black;
           padding: 12px 16px;
           text-decoration: none;
           display: block;
           cursor: pointer;
+          width: 100%;
         }
-        span:hover {
+        button.items:hover {
           background-color: #ddd;
         }
       }

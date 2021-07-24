@@ -110,11 +110,28 @@ export default createStore({
         commit("SET_SUCCESS", false);
         return;
       } else {
-        commit("SET_SUCCESS", true);
+        commit("SET_SUCCESS", "");
         let items = [newItem, ...state.items];
         commit("SET_ITEMS", items);
         commit("SET_ITEMSCOPY", items);
       }
+    },
+    deleteItem({ state, commit }, { id }) {
+      //REMOVE ITEM FROM ITEMCOPY STATE
+      const itemsCopyTitles = state.itemsCopy.map((item) => item.title);
+      const itemCopyIndex = itemsCopyTitles.indexOf(id);
+      const itemsCopy = state.itemsCopy;
+      itemsCopy.splice(itemCopyIndex, 0);
+      commit("SET_ITEMSCOPY", itemsCopy);
+
+      //REMOVE ITEM FROM ORIGINAL ITEMS STATE
+      const itemsTitles = state.items.map((item) => item.title);
+      const itemIndex = itemsTitles.indexOf(id);
+      const items = state.items;
+      items.splice(itemIndex, 0);
+
+      commit("SET_ITEMS", items);
+      commit("SET_SUCCESS", true);
     },
   },
 

@@ -163,8 +163,8 @@ export default {
     const addItem = () => {
       data.verifyFields = true;
       var elements = document.getElementsByTagName("input");
-      for (var i = 0; i < elements.length; i++) {
-        if (elements[i].value == "") {
+      for (var i = 1; i < elements.length; i++) {
+        if (elements[i].value.length < 1) {
           data.verifyFields = false;
           return;
         }
