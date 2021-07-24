@@ -9,7 +9,7 @@
         />
       </nav>
       <div>
-        <button class="add-item">
+        <button @click="createUser" class="add-item">
           <span>Add New Item</span>
           <img src="@/assets/Images/plus.svg" alt="add item" />
         </button>
@@ -40,21 +40,67 @@
         <img src="@/assets/Images/sort.svg" alt="sort icon" />
       </div>
     </div>
+    <Modal
+      @close="toggle"
+      :modalText="modalText"
+      :modal="modalToggle"
+      :signup="signup"
+    />
   </header>
 </template>
 
 <script>
-import { reactive, toRefs } from "vue";
+import { reactive, toRefs, watch, ref } from "vue";
+
+import Modal from "@/components/partials/AddItemModal.vue";
 
 export default {
-  component: {},
+  components: {
+    Modal,
+  },
   setup() {
+    const signup = ref(false);
     const data = reactive({
-      search: "",
+      modalToggle: false,
+    });
+    watch(signup, () => {
+      if (signup.value == true) {
+        data.modalText = "Signing Up... Please Wait";
+        window.disabled = true;
+      } else {
+        data.modalText = "Sign up Successful";
+      }
     });
 
+    const createUser = async () => {
+      try {
+        signup.value = true;
+        console.log(signup.value);
+        toggle();
+        signup.value = false;
+        await console.log("success");
+      } catch (err) {
+        data.modalText = err.message;
+      }
+    };
+    const toggle = () => {
+      data.modalToggle = !data.modalToggle;
+    };
+    document.addEventListener(
+      "click",
+      (e) => {
+        if (signup.value) {
+          e.stopPropagation();
+          e.preventDefault();
+        }
+      },
+      true
+    );
     return {
       ...toRefs(data),
+      createUser,
+      toggle,
+      signup,
     };
   },
 };

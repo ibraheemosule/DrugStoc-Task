@@ -26,5 +26,6 @@ body {
   margin: 0;
   font-family: "Source Sans Pro", sans-serif;
   background: #f0f0f1;
+  box-sizing: border-box;
 }
 </style>
