@@ -23,7 +23,7 @@ export default {
       },
       {
         title: "two",
-        tag: "deployment",
+        tag: "Deployment",
         price: 300,
         period: "years",
         status: "waiting approval",
@@ -31,7 +31,7 @@ export default {
       },
       {
         title: "three",
-        tag: "Marketing & Sales",
+        tag: "Optimization",
         price: 270,
         period: "years",
         status: "waiting approval",
@@ -39,7 +39,7 @@ export default {
       },
       {
         title: "four",
-        tag: "deployment",
+        tag: "Deployment",
         price: 180,
         period: "years",
         status: "waiting approval",
@@ -47,7 +47,7 @@ export default {
       },
       {
         title: "five",
-        tag: "deployment",
+        tag: "Deployment",
         price: 200,
         period: "years",
         status: "waiting approval",
@@ -55,7 +55,7 @@ export default {
       },
       {
         title: "six",
-        tag: "Marketing & Sales",
+        tag: "Integrations",
         price: 800,
         period: "years",
         status: "waiting approval",
@@ -63,7 +63,7 @@ export default {
       },
       {
         title: "seven",
-        tag: "deployment",
+        tag: "Deployment",
         price: 450,
         period: "years",
         status: "waiting approval",
@@ -71,7 +71,7 @@ export default {
       },
       {
         title: "eight",
-        tag: "deployment",
+        tag: "Deployment",
         price: 560,
         period: "years",
         status: "waiting approval",
@@ -79,7 +79,7 @@ export default {
       },
       {
         title: "nine",
-        tag: "deployment",
+        tag: "Testing",
         price: 420,
         period: "years",
         status: "waiting approval",
@@ -87,7 +87,7 @@ export default {
       },
       {
         title: "ten",
-        tag: "deployment",
+        tag: "Deployment",
         price: 800,
         period: "years",
         status: "waiting approval",
@@ -95,7 +95,7 @@ export default {
       },
       {
         title: "eleven",
-        tag: "deployment",
+        tag: "Optimization",
         price: 200,
         period: "years",
         status: "waiting approval",
@@ -103,7 +103,7 @@ export default {
       },
       {
         title: "twelve",
-        tag: "deployment",
+        tag: "Deployment",
         price: 300,
         period: "years",
         status: "waiting approval",
@@ -111,7 +111,7 @@ export default {
       },
       {
         title: "thirteen",
-        tag: "deployment",
+        tag: "Deployment",
         price: 330,
         period: "years",
         status: "waiting approval",
@@ -119,7 +119,7 @@ export default {
       },
       {
         title: "fourteen",
-        tag: "deployment",
+        tag: "Deployment",
         price: 700,
         period: "years",
         status: "waiting approval",
@@ -127,7 +127,7 @@ export default {
       },
       {
         title: "fifteen",
-        tag: "deployment",
+        tag: "Deployment",
         price: 100,
         period: "years",
         status: "waiting approval",

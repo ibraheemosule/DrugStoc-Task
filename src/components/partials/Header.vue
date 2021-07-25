@@ -72,7 +72,7 @@ export default {
       store.dispatch("filter", { value: search });
     });
 
-    const openModal = async () => {
+    const openModal = () => {
       signup.value = true;
       toggle();
       signup.value = false;
@@ -81,16 +81,13 @@ export default {
     const toggle = () => {
       data.modalToggle = !data.modalToggle;
     };
-    document.addEventListener(
-      "click",
-      (e) => {
-        if (signup.value) {
-          e.stopPropagation();
-          e.preventDefault();
-        }
-      },
-      true
-    );
+
+    window.onclick = function (event) {
+      if (event.target.id == "myModal" && signup.value) {
+        close();
+      }
+    };
+
     return {
       ...toRefs(data),
       openModal,

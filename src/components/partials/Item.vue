@@ -5,6 +5,21 @@
       <div>
         <p>
           {{ item.title }} <br /><span
+            :class="[
+              item.tag === 'Marketing & Sales'
+                ? 'marketing'
+                : item.tag === 'Custom Tasks'
+                ? 'custom'
+                : item.tag === 'Integrations'
+                ? 'integrations'
+                : item.tag === 'Optimization'
+                ? 'optimization'
+                : item.tag === 'Deployment'
+                ? 'deployment'
+                : item.tag === 'Testing'
+                ? 'testing'
+                : '',
+            ]"
             ><i>{{ item.tag }}</i></span
           >
         </p>
@@ -41,7 +56,6 @@
           <button @click="openModal" class="items" :id="item.title">
             Delete
           </button>
-          <button class="items" :id="item.title">Edit</button>
         </div>
       </div>
     </div>
@@ -65,6 +79,7 @@ export default {
       modalToggle: false,
       id: "",
     });
+
     const toggle = () => {
       data.modalToggle = !data.modalToggle;
     };
@@ -130,6 +145,30 @@ export default {
         font-size: 0.8em;
         margin-top: 0.5em;
         color: gray;
+      }
+      .custom {
+        color: #707070;
+        background: #e2e2e2;
+      }
+      .marketing {
+        background: #ffcccc;
+        color: #e24b4b;
+      }
+      .integrations {
+        color: #37baff;
+        background: #c4ebff;
+      }
+      .optimization {
+        background: #f3f8e4;
+        color: #bee74d;
+      }
+      .deployment {
+        background: #92dff7;
+        color: #023e55;
+      }
+      .testing {
+        background: #f792e6;
+        color: #610451;
       }
     }
   }

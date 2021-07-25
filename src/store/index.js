@@ -68,14 +68,6 @@ export default createStore({
         commit("SET_ITEMSCOPY", items);
       }
     },
-
-    // editItem({ state, commit }, { newItem, id }) {
-    //   // const itemsTitleArray = state.items.map((item) => item.title);
-    //   const item = state.itemsCopy.find(({ title }) => title === id);
-    //   console.log(item);
-    //   console.log(state, commit, newItem, id);
-    // },
-
     deleteItem({ state, commit }, { id }) {
       //REMOVE ITEM FROM ITEMCOPY STATE
       let itemsCopy = state.itemsCopy;
