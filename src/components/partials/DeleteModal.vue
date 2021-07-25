@@ -50,6 +50,11 @@ export default {
     const deleteItem = () => {
       store.dispatch("deleteItem", { id: props.id });
     };
+    window.onclick = function (event) {
+      if (event.target.id == "myModal") {
+        close();
+      }
+    };
     return {
       ...toRefs(data),
       close,

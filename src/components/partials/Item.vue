@@ -68,8 +68,7 @@ export default {
     const toggle = () => {
       data.modalToggle = !data.modalToggle;
     };
-    const openModal = async (e) => {
-
+    const openModal = (e) => {
       data.id = e.target.id;
       toggle();
     };

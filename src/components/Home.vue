@@ -4,8 +4,18 @@
       <Header />
       <main>
         <aside>
-          <Tags :tagsArray="tags" header="Tags" idname="tags" />
-          <Tags :tagsArray="price" header="Task Price Range" idname="price" />
+          <Tags
+            :tagsArray="tags"
+            header="Tags"
+            idname="tags"
+            :type="checkbox"
+          />
+          <Tags
+            :tagsArray="price"
+            header="Task Price Range"
+            :type="radio"
+            idname="price"
+          />
         </aside>
         <section>
           <div class="section__nav">
@@ -15,7 +25,7 @@
               <span>Archived (6)</span>
               <span>Closed (0)</span>
             </div>
-            <div>
+            <div class="pagination">
               <Pagination />
             </div>
           </div>
@@ -48,6 +58,8 @@ export default {
   },
   setup() {
     const data = reactive({
+      checkbox: "checkbox",
+      radio: "radio",
       tags: [
         "custom tasks",
         "marketing & sales",
@@ -56,7 +68,13 @@ export default {
         "deployment",
         "testing",
       ],
-      price: ["less than N100", "N100 to N300", "N301 to N900", "above N900"],
+      price: [
+        "less than N100",
+        "N100 to N300",
+        "N301 to N900",
+        "above N900",
+        "all prices",
+      ],
     });
 
     return {
@@ -97,10 +115,15 @@ body {
           display: flex;
           flex: 1;
           justify-content: space-between;
+
           span {
             font-weight: bold;
             color: #808080;
           }
+        }
+        .pagination {
+          flex: 1;
+          justify-content: flex-end;
         }
       }
       .requests {

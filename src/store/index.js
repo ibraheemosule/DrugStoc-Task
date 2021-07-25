@@ -2,128 +2,7 @@ import { createStore } from "vuex";
 
 export default createStore({
   state: {
-    items: [
-      {
-        title: "one",
-        tag: "deployment",
-        price: 400,
-        period: "years",
-        status: "waiting approval",
-        name: "ibraheem sulay",
-      },
-      {
-        title: "two",
-        tag: "deployment",
-        price: 400,
-        period: "years",
-        status: "waiting approval",
-        name: "ibraheem sulay",
-      },
-      {
-        title: "three",
-        tag: "deployment",
-        price: 400,
-        period: "years",
-        status: "waiting approval",
-        name: "ibraheem sulay",
-      },
-      {
-        title: "four",
-        tag: "deployment",
-        price: 400,
-        period: "years",
-        status: "waiting approval",
-        name: "ibraheem sulay",
-      },
-      {
-        title: "five",
-        tag: "deployment",
-        price: 400,
-        period: "years",
-        status: "waiting approval",
-        name: "ibraheem sulay",
-      },
-      {
-        title: "six",
-        tag: "deployment",
-        price: 400,
-        period: "years",
-        status: "waiting approval",
-        name: "ibraheem sulay",
-      },
-      {
-        title: "seven",
-        tag: "deployment",
-        price: 400,
-        period: "years",
-        status: "waiting approval",
-        name: "ibraheem sulay",
-      },
-      {
-        title: "eight",
-        tag: "deployment",
-        price: 400,
-        period: "years",
-        status: "waiting approval",
-        name: "ibraheem sulay",
-      },
-      {
-        title: "nine",
-        tag: "deployment",
-        price: 400,
-        period: "years",
-        status: "waiting approval",
-        name: "ibraheem sulay",
-      },
-      {
-        title: "ten",
-        tag: "deployment",
-        price: 400,
-        period: "years",
-        status: "waiting approval",
-        name: "ibraheem sulay",
-      },
-      {
-        title: "eleven",
-        tag: "deployment",
-        price: 500,
-        period: "years",
-        status: "waiting approval",
-        name: "ibraheem sulay",
-      },
-      {
-        title: "twelve",
-        tag: "deployment",
-        price: 300,
-        period: "years",
-        status: "waiting approval",
-        name: "ibraheem sulay",
-      },
-      {
-        title: "thirteen",
-        tag: "deployment",
-        price: 310,
-        period: "years",
-        status: "waiting approval",
-        name: "ibraheem sulay",
-      },
-      {
-        title: "fourteen",
-        tag: "deployment",
-        price: 800,
-        period: "years",
-        status: "waiting approval",
-        name: "ibraheem sulay",
-      },
-      {
-        title: "fifteen",
-        tag: "deployment",
-        price: 100,
-        period: "years",
-        status: "waiting approval",
-        name: "ibraheem sulay",
-      },
-    ],
+    items: [],
     itemsCopy: [],
     searchValue: "",
     success: "",
@@ -189,6 +68,14 @@ export default createStore({
         commit("SET_ITEMSCOPY", items);
       }
     },
+
+    // editItem({ state, commit }, { newItem, id }) {
+    //   // const itemsTitleArray = state.items.map((item) => item.title);
+    //   const item = state.itemsCopy.find(({ title }) => title === id);
+    //   console.log(item);
+    //   console.log(state, commit, newItem, id);
+    // },
+
     deleteItem({ state, commit }, { id }) {
       //REMOVE ITEM FROM ITEMCOPY STATE
       let itemsCopy = state.itemsCopy;
@@ -200,6 +87,71 @@ export default createStore({
       items = items.filter((item) => item.title !== id);
       commit("SET_ITEMS", items);
       commit("SET_SUCCESS", true);
+    },
+
+    //FILTER LIST WITH TAGS
+    tagsFilter({ state, commit }, { input, type }) {
+      let items = state.items;
+      let itemsCopy = state.itemsCopy;
+      let filtered = [];
+      if (type == "checkbox") {
+        input.forEach((item) => {
+          items.forEach((val) => {
+            const value = val.tag.toLowerCase().split(" ")[0];
+            if (value === item.toLowerCase().split(" ")[0])
+              filtered = [...filtered, val];
+          });
+        });
+        commit("SET_ITEMSCOPY", filtered);
+      }
+      if (type == "radio") {
+        itemsCopy = items;
+        switch (input.toLowerCase()) {
+          case "less than n100":
+            {
+              itemsCopy.forEach((val) => {
+                if (val.price < 100) {
+                  filtered = [...filtered, val];
+                }
+              });
+            }
+            // code block
+            break;
+          case "n100 to n300":
+            {
+              itemsCopy.forEach((val) => {
+                if (val.price > 99 && val.price < 301) {
+                  filtered = [...filtered, val];
+                }
+              });
+            }
+            break;
+          case "n301 to n900":
+            {
+              itemsCopy.forEach((val) => {
+                if (val.price > 300 && val.price < 901) {
+                  filtered = [...filtered, val];
+                }
+              });
+            }
+            break;
+          case "above n900":
+            {
+              itemsCopy.forEach((val) => {
+                if (val.price > 900) {
+                  filtered = [...filtered, val];
+                }
+              });
+            }
+            break;
+          case "all prices":
+            {
+              filtered = items;
+            }
+            break;
+        }
+        commit("SET_ITEMSCOPY", filtered);
+      }
     },
   },
 

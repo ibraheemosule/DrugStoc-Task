@@ -12,10 +12,134 @@ export default {
     Home,
   },
   setup() {
+    const items = [
+      {
+        title: "one",
+        tag: "Marketing & Sales",
+        price: 40,
+        period: "years",
+        status: "waiting approval",
+        name: "ibraheem sulay",
+      },
+      {
+        title: "two",
+        tag: "deployment",
+        price: 300,
+        period: "years",
+        status: "waiting approval",
+        name: "ibraheem sulay",
+      },
+      {
+        title: "three",
+        tag: "Marketing & Sales",
+        price: 270,
+        period: "years",
+        status: "waiting approval",
+        name: "ibraheem sulay",
+      },
+      {
+        title: "four",
+        tag: "deployment",
+        price: 180,
+        period: "years",
+        status: "waiting approval",
+        name: "ibraheem sulay",
+      },
+      {
+        title: "five",
+        tag: "deployment",
+        price: 200,
+        period: "years",
+        status: "waiting approval",
+        name: "ibraheem sulay",
+      },
+      {
+        title: "six",
+        tag: "Marketing & Sales",
+        price: 800,
+        period: "years",
+        status: "waiting approval",
+        name: "ibraheem sulay",
+      },
+      {
+        title: "seven",
+        tag: "deployment",
+        price: 450,
+        period: "years",
+        status: "waiting approval",
+        name: "ibraheem sulay",
+      },
+      {
+        title: "eight",
+        tag: "deployment",
+        price: 560,
+        period: "years",
+        status: "waiting approval",
+        name: "ibraheem sulay",
+      },
+      {
+        title: "nine",
+        tag: "deployment",
+        price: 420,
+        period: "years",
+        status: "waiting approval",
+        name: "ibraheem sulay",
+      },
+      {
+        title: "ten",
+        tag: "deployment",
+        price: 800,
+        period: "years",
+        status: "waiting approval",
+        name: "ibraheem sulay",
+      },
+      {
+        title: "eleven",
+        tag: "deployment",
+        price: 200,
+        period: "years",
+        status: "waiting approval",
+        name: "ibraheem sulay",
+      },
+      {
+        title: "twelve",
+        tag: "deployment",
+        price: 300,
+        period: "years",
+        status: "waiting approval",
+        name: "ibraheem sulay",
+      },
+      {
+        title: "thirteen",
+        tag: "deployment",
+        price: 330,
+        period: "years",
+        status: "waiting approval",
+        name: "ibraheem sulay",
+      },
+      {
+        title: "fourteen",
+        tag: "deployment",
+        price: 700,
+        period: "years",
+        status: "waiting approval",
+        name: "ibraheem sulay",
+      },
+      {
+        title: "fifteen",
+        tag: "deployment",
+        price: 100,
+        period: "years",
+        status: "waiting approval",
+        name: "ibraheem sulay",
+      },
+    ];
     const store = useStore();
     const data = reactive({});
+
     (function () {
-      store.commit("SET_ITEMSCOPY", store.state.items);
+      store.commit("SET_ITEMS", items);
+      store.commit("SET_ITEMSCOPY", items);
     })();
 
     return {

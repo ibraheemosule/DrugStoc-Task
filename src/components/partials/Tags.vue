@@ -3,26 +3,61 @@
     <h3>{{ header }}</h3>
 
     <div class="tag" v-for="array in tagsArray" :key="array">
-      <input type="radio" :id="array" :name="idname" :value="array" />
+      <input
+        @click="selected"
+        :type="type"
+        :id="array"
+        :name="idname"
+        :value="array"
+      />
       <label :for="array">{{ array }}</label>
     </div>
   </div>
 </template>
 
 <script>
-import { reactive, toRefs } from "vue";
+import { reactive, toRefs, computed } from "vue";
+import { useStore } from "vuex";
 
 export default {
   props: {
     tagsArray: Array,
     header: String,
     idname: String,
+    type: String,
   },
-  setup() {
-    const data = reactive({});
+  setup(props) {
+    const store = useStore();
+    const data = reactive({
+      input: [],
+      items: computed(() => store.getters.items),
+    });
+
+    const selected = (e) => {
+      const input = data.input;
+      const check = e.target.checked;
+      if (props.type == "checkbox" && check) {
+        data.input = [...input, e.target.value];
+      } else if (props.type == "checkbox" && check == false) {
+        const filter = input.filter((val) => val !== e.target.value);
+        if (filter.length < 1) {
+          store.commit("SET_ITEMSCOPY", data.items);
+          return;
+        }
+        data.input = filter;
+      }
+      if (props.type == "radio" && check) {
+        data.input = e.target.id;
+      }
+      store.dispatch("tagsFilter", {
+        input: data.input,
+        type: props.type,
+      });
+    };
 
     return {
       ...toRefs(data),
+      selected,
     };
   },
 };
