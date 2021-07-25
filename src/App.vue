@@ -15,7 +15,7 @@ export default {
     const items = [
       {
         title: "one",
-        tag: "Marketing & Sales",
+        tag: "Testing",
         price: 40,
         period: "years",
         status: "waiting approval",
