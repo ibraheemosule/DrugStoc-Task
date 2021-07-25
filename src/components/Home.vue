@@ -35,12 +35,26 @@
               <img src="@/assets/Images/info.svg" alt="" />
             </div>
             <Item />
-            <h2
+            <div
               v-if="pagination.length < 1"
-              style="text-align: center; margin: 3em 0 0 0; color: gray"
+              style="
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+              "
             >
-              No Items Found
-            </h2>
+              <h2
+                style="
+                  text-align: center;
+                  margin: 3em 0 0 0;
+                  color: gray;
+                  width: 100%;
+                "
+              >
+                No Items Found
+              </h2>
+              <button @click="refresh" class="refresh">REFRESH</button>
+            </div>
           </div>
         </section>
       </main>
@@ -85,9 +99,10 @@ export default {
         "all prices",
       ],
     });
-
+    const refresh = () => store.commit("SET_ITEMSCOPY", store.getters.items);
     return {
       ...toRefs(data),
+      refresh,
     };
   },
 };
@@ -151,6 +166,30 @@ body {
       }
       @media (max-width: 800px) {
         flex-basis: 100%;
+      }
+    }
+    .refresh {
+      width: 20%;
+      align-self: center;
+      padding: 0.5rem 1.5rem;
+      margin-top: 5em;
+      border-radius: 4em 4em 4em 4em;
+      background: #4b70d6;
+      color: #fff;
+      font-weight: bolder;
+      border-color: #4b70d6;
+      transition: all 0.1s ease-in;
+      cursor: pointer;
+      &:hover {
+        background: #010196;
+        border-color: #010196;
+      }
+      span {
+        align-self: center;
+        margin-right: 0.5em;
+      }
+      @media (max-width: 600px) {
+        padding: 0.1em 0.5em;
       }
     }
   }
