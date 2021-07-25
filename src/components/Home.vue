@@ -35,6 +35,12 @@
               <img src="@/assets/Images/info.svg" alt="" />
             </div>
             <Item />
+            <h2
+              v-if="pagination.length < 1"
+              style="text-align: center; margin: 3em 0 0 0; color: gray"
+            >
+              No Items Found
+            </h2>
           </div>
         </section>
       </main>
@@ -43,11 +49,12 @@
 </template>
 
 <script>
-import { reactive, toRefs } from "vue";
+import { reactive, toRefs, computed } from "vue";
 import Header from "@/components/partials/Header.vue";
 import Tags from "@/components/partials/Tags.vue";
 import Item from "@/components/partials/Item.vue";
 import Pagination from "@/components/partials/Pagination.vue";
+import { useStore } from "vuex";
 
 export default {
   components: {
@@ -57,7 +64,9 @@ export default {
     Pagination,
   },
   setup() {
+    const store = useStore();
     const data = reactive({
+      pagination: computed(() => store.getters.paginationItem),
       checkbox: "checkbox",
       radio: "radio",
       tags: [

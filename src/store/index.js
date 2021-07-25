@@ -85,13 +85,14 @@ export default createStore({
     tagsFilter({ state, commit }, { input, type }) {
       let items = state.items;
       let itemsCopy = state.itemsCopy;
+
+      let filterInput = [...new Set(input)];
       let filtered = [];
       if (type == "checkbox") {
-        input.forEach((item) => {
+        filterInput.forEach((item) => {
           items.forEach((val) => {
-            const value = val.tag.toLowerCase().split(" ")[0];
-            if (value === item.toLowerCase().split(" ")[0])
-              filtered = [...filtered, val];
+            const value = val.tag.toLowerCase();
+            if (value === item.toLowerCase()) filtered = [...filtered, val];
           });
         });
         commit("SET_ITEMSCOPY", filtered);

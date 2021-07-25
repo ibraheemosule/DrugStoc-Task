@@ -38,13 +38,26 @@ export default {
       const check = e.target.checked;
       if (props.type == "checkbox" && check) {
         data.input = [...input, e.target.value];
-      } else if (props.type == "checkbox" && check == false) {
+        store.dispatch("tagsFilter", {
+          input: data.input,
+          type: props.type,
+        });
+        return;
+      } else if (props.type == "checkbox" && !check) {
+        const filterInput = [...new Set(data.input)];
+        const input = filterInput.map((item) => item.split(" ")[0]);
         const filter = input.filter((val) => val !== e.target.value);
-        if (filter.length < 1) {
+        if (filter.length === 0) {
           store.commit("SET_ITEMSCOPY", data.items);
           return;
         }
         data.input = filter;
+
+        store.dispatch("tagsFilter", {
+          input: filter,
+          type: props.type,
+        });
+        return;
       }
       if (props.type == "radio" && check) {
         data.input = e.target.id;
