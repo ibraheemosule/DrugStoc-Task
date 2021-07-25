@@ -61,7 +61,7 @@ export default {
   setup() {
     const store = useStore();
     const data = reactive({
-      items: computed(() => store.getters.itemsCopy),
+      items: computed(() => store.getters.paginationItem),
       modalToggle: false,
       id: "",
     });
@@ -69,10 +69,13 @@ export default {
       data.modalToggle = !data.modalToggle;
     };
     const openModal = async (e) => {
-      data.id = e.target.id;
 
+      data.id = e.target.id;
       toggle();
     };
+    (function () {
+      store.commit("SET_PAGINATIONITEM", store.getters.itemsCopy.slice(0, 6));
+    })();
     return {
       ...toRefs(data),
       toggle,

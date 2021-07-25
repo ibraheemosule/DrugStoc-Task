@@ -69,7 +69,6 @@ export default {
 
     //WATCH THE SEARCH BAR
     watch(search, () => {
-      console.log(search);
       store.dispatch("filter", { value: search });
     });
 

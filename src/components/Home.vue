@@ -15,6 +15,9 @@
               <span>Archived (6)</span>
               <span>Closed (0)</span>
             </div>
+            <div>
+              <Pagination />
+            </div>
           </div>
           <div class="requests">
             <div class="current">
@@ -34,12 +37,14 @@ import { reactive, toRefs } from "vue";
 import Header from "@/components/partials/Header.vue";
 import Tags from "@/components/partials/Tags.vue";
 import Item from "@/components/partials/Item.vue";
+import Pagination from "@/components/partials/Pagination.vue";
 
 export default {
   components: {
     Header,
     Tags,
     Item,
+    Pagination,
   },
   setup() {
     const data = reactive({

@@ -4,7 +4,7 @@ export default createStore({
   state: {
     items: [
       {
-        title: "c3jj dfjdajopjgkxfjdljkldfj fjfldjfllds",
+        title: "one",
         tag: "deployment",
         price: 400,
         period: "years",
@@ -12,7 +12,79 @@ export default createStore({
         name: "ibraheem sulay",
       },
       {
-        title: "b2jj dfj kldf jdxn aiofdahk jaxfhaig ldfj fjfldjfllds",
+        title: "two",
+        tag: "deployment",
+        price: 400,
+        period: "years",
+        status: "waiting approval",
+        name: "ibraheem sulay",
+      },
+      {
+        title: "three",
+        tag: "deployment",
+        price: 400,
+        period: "years",
+        status: "waiting approval",
+        name: "ibraheem sulay",
+      },
+      {
+        title: "four",
+        tag: "deployment",
+        price: 400,
+        period: "years",
+        status: "waiting approval",
+        name: "ibraheem sulay",
+      },
+      {
+        title: "five",
+        tag: "deployment",
+        price: 400,
+        period: "years",
+        status: "waiting approval",
+        name: "ibraheem sulay",
+      },
+      {
+        title: "six",
+        tag: "deployment",
+        price: 400,
+        period: "years",
+        status: "waiting approval",
+        name: "ibraheem sulay",
+      },
+      {
+        title: "seven",
+        tag: "deployment",
+        price: 400,
+        period: "years",
+        status: "waiting approval",
+        name: "ibraheem sulay",
+      },
+      {
+        title: "eight",
+        tag: "deployment",
+        price: 400,
+        period: "years",
+        status: "waiting approval",
+        name: "ibraheem sulay",
+      },
+      {
+        title: "nine",
+        tag: "deployment",
+        price: 400,
+        period: "years",
+        status: "waiting approval",
+        name: "ibraheem sulay",
+      },
+      {
+        title: "ten",
+        tag: "deployment",
+        price: 400,
+        period: "years",
+        status: "waiting approval",
+        name: "ibraheem sulay",
+      },
+      {
+        title: "eleven",
         tag: "deployment",
         price: 500,
         period: "years",
@@ -20,7 +92,7 @@ export default createStore({
         name: "ibraheem sulay",
       },
       {
-        title: "y6jj dfj kldf jq adl aae  kldfj fjfldjfllds",
+        title: "twelve",
         tag: "deployment",
         price: 300,
         period: "years",
@@ -28,7 +100,7 @@ export default createStore({
         name: "ibraheem sulay",
       },
       {
-        title: "t5jj dfj kldf ajhr auacodfjdljkldfj fjfldjfllds",
+        title: "thirteen",
         tag: "deployment",
         price: 310,
         period: "years",
@@ -36,7 +108,7 @@ export default createStore({
         name: "ibraheem sulay",
       },
       {
-        title: "e4jj dfj kldf j ad adfcofjhjkldfj fjfldjfllds",
+        title: "fourteen",
         tag: "deployment",
         price: 800,
         period: "years",
@@ -44,7 +116,7 @@ export default createStore({
         name: "ibraheem sulay",
       },
       {
-        title: "a1jj dfj kldfgkja cojdcoljkldfj fjfldjfllds",
+        title: "fifteen",
         tag: "deployment",
         price: 100,
         period: "years",
@@ -55,6 +127,7 @@ export default createStore({
     itemsCopy: [],
     searchValue: "",
     success: "",
+    paginationItem: "",
   },
 
   //GETTERS
@@ -65,6 +138,7 @@ export default createStore({
         item.title.toLowerCase().includes(state.searchValue.toLowerCase())
       ),
     success: (state) => state.success,
+    paginationItem: (state) => state.paginationItem,
   },
 
   //ACTIONS
@@ -99,11 +173,9 @@ export default createStore({
     },
 
     //SEARCH BAR UPDATER
-    filter({ commit, dispatch, state }, { value }) {
+    filter({ commit, dispatch }, { value }) {
       if (value.length == 0) dispatch("sortMethod", { value: 1 });
-
       commit("SET_SEARCH_VALUE", value);
-      console.log(state.itemsCopy);
     },
     addNewItem({ state, commit }, { newItem }) {
       const itemsTitleArray = state.items.map((item) => item.title);
@@ -137,5 +209,6 @@ export default createStore({
     SET_ITEMSCOPY: (state, value) => (state.itemsCopy = value),
     SET_SEARCH_VALUE: (state, value) => (state.searchValue = value),
     SET_SUCCESS: (state, value) => (state.success = value),
+    SET_PAGINATIONITEM: (state, val) => (state.paginationItem = [...val]),
   },
 });
