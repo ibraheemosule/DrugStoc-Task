@@ -40,7 +40,7 @@ export default {
       const checkboxInput = document.querySelectorAll("[type='checkbox']");
 
       if (props.type == "checkbox" && check) {
-        radioInput.forEach((input) => (input.checked = "disabled"));
+        radioInput.forEach((input) => (input.checked = false));
         data.input = [...input, e.target.value];
         store.dispatch("tagsFilter", {
           input: data.input,
@@ -65,7 +65,7 @@ export default {
       }
       if (props.type == "radio" && check) {
         data.input = e.target.id;
-        checkboxInput.forEach((input) => (input.checked = "disabled"));
+        checkboxInput.forEach((input) => (input.checked = false));
       }
       store.dispatch("tagsFilter", {
         input: data.input,
@@ -94,6 +94,9 @@ export default {
       font-size: smaller;
       text-transform: capitalize;
     }
+    input {
+      cursor: pointer;
+    }
     input[type="radio"]:after {
       width: 15px;
       height: 15px;
@@ -104,6 +107,7 @@ export default {
       display: inline-block;
       visibility: visible;
       border: 1px solid gray;
+      border-radius: 50%;
     }
 
     input[type="radio"]:checked:after {
@@ -117,6 +121,7 @@ export default {
       display: inline-block;
       visibility: visible;
       border: 1px solid #4b70d6;
+      border-radius: 50%;
     }
   }
 }
