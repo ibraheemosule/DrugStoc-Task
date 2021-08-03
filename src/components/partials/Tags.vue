@@ -36,7 +36,11 @@ export default {
     const selected = (e) => {
       const input = data.input;
       const check = e.target.checked;
+      const radioInput = document.querySelectorAll("[type='radio']");
+      const checkboxInput = document.querySelectorAll("[type='checkbox']");
+
       if (props.type == "checkbox" && check) {
+        radioInput.forEach((input) => (input.checked = "disabled"));
         data.input = [...input, e.target.value];
         store.dispatch("tagsFilter", {
           input: data.input,
@@ -61,6 +65,7 @@ export default {
       }
       if (props.type == "radio" && check) {
         data.input = e.target.id;
+        checkboxInput.forEach((input) => (input.checked = "disabled"));
       }
       store.dispatch("tagsFilter", {
         input: data.input,

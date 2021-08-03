@@ -131,6 +131,7 @@ body {
       flex-basis: 72%;
       .section__nav {
         display: flex;
+        flex-wrap: wrap;
 
         @media (max-width: 800px) {
           margin-top: 3em;
@@ -139,7 +140,13 @@ body {
           display: flex;
           flex: 1;
           justify-content: space-between;
-
+          @media (max-width: 1120px) {
+            flex-basis: 50%;
+          }
+          @media (max-width: 570px) {
+            flex-basis: 100%;
+            margin-bottom: 3em;
+          }
           span {
             font-weight: bold;
             color: #808080;
